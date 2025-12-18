@@ -1,34 +1,26 @@
 {
   "maintenance": false,
-  "version": "1.1",
-  "message": "🚀 Sistem baru siap",
+  "version": "1.2",
+  "message": "🔥 Tampilan merah aktif",
   "mode": "dark",
 
   "theme": {
     "dark": {
-      "primary": "#38bdf8",
-      "secondary": "#2563eb",
-      "background": "#020617",
-      "accent": "#f43f5e"
+      "primary": "#ef4444",
+      "secondary": "#dc2626",
+      "background": "#0f0f0f",
+      "accent": "#fb7185"
     },
     "light": {
-      "primary": "#2563eb",
-      "secondary": "#38bdf8",
-      "background": "#f8fafc",
-      "accent": "#dc2626"
+      "primary": "#dc2626",
+      "secondary": "#ef4444",
+      "background": "#fff1f2",
+      "accent": "#991b1b"
     }
   },
 
   "features": {
     "themeToggle": true,
     "voice": true
-  },
-
-  "voice": {
-    "autoPlay": false,
-    "language": "id-ID",
-    "speed": 1,
-    "pitch": 1,
-    "volume": 1
   }
 }
