@@ -1,31 +1,29 @@
 {
-  "version": "1.3",
-  "message": "⚙️ Update 3: Pengaturan aktif, tema modern, persiapan login & daftar",
+  "version": "3.1.0",
+  "message": "✅ Update aktif | Tema & fitur dikontrol dari server",
   "maintenance": false,
 
   "theme": {
     "primary": "#22c55e",
     "secondary": "#16a34a",
-    "background": "#020617",
     "accent": "#4ade80",
+    "background": "#020617",
     "card": "#020617cc"
   },
 
   "features": {
-    "login": false,
-    "register": false,
-    "settings": true,
     "sound": true,
-    "ads": false
+    "ads": true,
+    "settings": true,
+    "login": false,
+    "register": false
   },
 
   "game": {
-    "enabled": true,
-    "defaultDifficulty": "easy"
+    "enabled": true
   },
 
   "ads": {
-    "enabled": false,
-    "text": "Iklan akan tampil di sini"
+    "text": "🔥 Update terbaru tersedia!"
   }
 }
