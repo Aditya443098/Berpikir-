@@ -1,26 +1,31 @@
 {
+  "version": "3.0.0",
+  "message": "⚙️ Update 3: Pengaturan aktif, tema modern, persiapan login & daftar",
   "maintenance": false,
-  "version": "1.2",
-  "message": "🟢 Tema hijau aktif",
-  "mode": "dark",
 
   "theme": {
-    "dark": {
-      "primary": "#22c55e",
-      "secondary": "#16a34a",
-      "background": "#020617",
-      "accent": "#4ade80"
-    },
-    "light": {
-      "primary": "#16a34a",
-      "secondary": "#22c55e",
-      "background": "#f0fdf4",
-      "accent": "#15803d"
-    }
+    "primary": "#22c55e",
+    "secondary": "#16a34a",
+    "background": "#020617",
+    "accent": "#4ade80",
+    "card": "#020617cc"
   },
 
   "features": {
-    "themeToggle": true,
-    "voice": true
+    "login": false,
+    "register": false,
+    "settings": true,
+    "sound": true,
+    "ads": false
+  },
+
+  "game": {
+    "enabled": true,
+    "defaultDifficulty": "easy"
+  },
+
+  "ads": {
+    "enabled": false,
+    "text": "Iklan akan tampil di sini"
   }
 }
