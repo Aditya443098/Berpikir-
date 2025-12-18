@@ -1,21 +1,21 @@
 {
   "maintenance": false,
-  "version": "1.2",
-  "message": "🔥 Tampilan merah aktif",
+  "version": "1.3",
+  "message": "🟢 Tema hijau aktif",
   "mode": "dark",
 
   "theme": {
     "dark": {
-      "primary": "#ef4444",
-      "secondary": "#dc2626",
-      "background": "#0f0f0f",
-      "accent": "#fb7185"
+      "primary": "#22c55e",
+      "secondary": "#16a34a",
+      "background": "#020617",
+      "accent": "#4ade80"
     },
     "light": {
-      "primary": "#dc2626",
-      "secondary": "#ef4444",
-      "background": "#fff1f2",
-      "accent": "#991b1b"
+      "primary": "#16a34a",
+      "secondary": "#22c55e",
+      "background": "#f0fdf4",
+      "accent": "#15803d"
     }
   },
 
