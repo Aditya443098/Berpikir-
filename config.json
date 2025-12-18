@@ -1,6 +1,6 @@
 {
   "maintenance": false,
-  "version": "1.0",
+  "version": "1.1",
   "message": "🚀 Sistem baru siap",
   "mode": "dark",
 
@@ -20,6 +20,15 @@
   },
 
   "features": {
-    "themeToggle": true
+    "themeToggle": true,
+    "voice": true
+  },
+
+  "voice": {
+    "autoPlay": false,
+    "language": "id-ID",
+    "speed": 1,
+    "pitch": 1,
+    "volume": 1
   }
 }
