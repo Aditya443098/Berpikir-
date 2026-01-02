@@ -1,1 +1,377 @@
 
+// ====================================================
+// UPDATE HARGA LAYANAN SUNTIK SOSMED
+// Semua harga menjadi GRATIS (0 koin) - PROMO SPESIAL!
+// ====================================================
+
+const SERVICE_DEFINITIONS = [
+    {
+        id: "like",
+        name: "Like",
+        icon: "fas fa-thumbs-up",
+        description: "Tambahkan like ke postingan media sosial Anda",
+        price: 0,  // GRATIS!
+        oldPrice: 400,
+        discount: 100  // Diskon 100% - GRATIS TOTAL!
+    },
+    {
+        id: "view",
+        name: "View",
+        icon: "fas fa-eye",
+        description: "Tingkatkan jumlah view konten Anda",
+        price: 0,  // GRATIS!
+        oldPrice: 400,
+        discount: 100  // Diskon 100% - GRATIS TOTAL!
+    },
+    {
+        id: "favorite",
+        name: "Favorit",
+        icon: "fas fa-heart",
+        description: "Tambah favorit ke konten media sosial Anda",
+        price: 0,  // GRATIS!
+        oldPrice: 400,
+        discount: 100  // Diskon 100% - GRATIS TOTAL!
+    },
+    {
+        id: "comment",
+        name: "Komentar",
+        icon: "fas fa-comment",
+        description: "Tambahkan komentar positif ke postingan",
+        price: 0,  // GRATIS!
+        oldPrice: 400,
+        discount: 100  // Diskon 100% - GRATIS TOTAL!
+    },
+    {
+        id: "share",
+        name: "Share",
+        icon: "fas fa-share-alt",
+        description: "Bagikan konten ke berbagai platform",
+        price: 0,  // GRATIS!
+        oldPrice: 400,
+        discount: 100  // Diskon 100% - GRATIS TOTAL!
+    },
+    {
+        id: "save",
+        name: "Save",
+        icon: "fas fa-bookmark",
+        description: "Simpan konten untuk dilihat nanti",
+        price: 0,  // GRATIS!
+        oldPrice: 400,
+        discount: 100  // Diskon 100% - GRATIS TOTAL!
+    }
+];
+
+// ====================================================
+// FUNGSI BELI LAYANAN GRATIS
+// ====================================================
+function buyService(price, serviceName) {
+    // Karena semua gratis (0 koin), langsung approve
+    console.log(`🎁 Layanan GRATIS: ${serviceName}`);
+    
+    // Tampilkan notifikasi
+    alert(`🎉 Layanan ${serviceName} GRATIS!\n\nTinggal isi data dan kirim ke admin.`);
+    
+    // Tampilkan form
+    document.getElementById('selectedService').value = serviceName;
+    document.getElementById('selectedPrice').value = price;
+    document.getElementById('serviceForm').style.display = 'block';
+    
+    // Scroll ke form
+    document.getElementById('inject').scrollIntoView({ behavior: 'smooth' });
+    
+    // Reset form
+    document.getElementById('userName').value = '';
+    document.getElementById('targetLink').value = '';
+    document.getElementById('additionalMessage').value = '';
+    document.getElementById('emailStatus').style.display = 'none';
+    
+    return true;
+}
+
+// ====================================================
+// UPDATE FUNGSI RENDER SERVICES
+// ====================================================
+function renderServices() {
+    const serviceContainer = document.getElementById("serviceContainer");
+    if (!serviceContainer) return;
+    
+    serviceContainer.innerHTML = "";
+    
+    // Header PROMO GRATIS
+    const header = document.createElement('div');
+    header.style.cssText = `
+        grid-column: 1 / -1;
+        background: linear-gradient(45deg, #ff0000, #ff9900);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        margin-bottom: 25px;
+        border: 3px dashed #ffd700;
+        animation: pulse 2s infinite;
+    `;
+    header.innerHTML = `
+        <h2 style="color:white; margin:0 0 10px 0;">
+            <i class="fas fa-gift"></i> PROMO SPESIAL!
+        </h2>
+        <p style="font-size: 24px; font-weight: bold; color: #ffd700; margin: 0 0 10px 0;">
+            SEMUA LAYANAN GRATIS! 🎁
+        </p>
+        <p style="margin:0; font-size:16px; color:white;">
+            Untuk waktu terbatas saja! Buruan sebelum berbayar kembali!
+        </p>
+    `;
+    serviceContainer.appendChild(header);
+    
+    SERVICE_DEFINITIONS.forEach(service => {
+        const serviceCard = document.createElement('div');
+        serviceCard.className = 'service-card';
+        
+        // Tampilkan badge GRATIS
+        const freeBadge = `
+            <div style="position:absolute; top:-10px; right:-10px; background:#ff0000; color:white; padding:5px 15px; border-radius:20px; font-size:14px; font-weight:bold; transform:rotate(5deg); box-shadow:0 3px 10px rgba(0,0,0,0.3); z-index:10;">
+                <i class="fas fa-crown"></i> GRATIS
+            </div>
+        `;
+        
+        // Tampilkan harga lama yang dicoret
+        const oldPriceDisplay = service.oldPrice ? 
+            `<div style="text-decoration: line-through; color: #999; font-size: 16px; margin-bottom: 5px;">
+                <i class="fas fa-tag"></i> Rp ${(service.oldPrice * 100).toLocaleString()}
+            </div>` : '';
+        
+        serviceCard.innerHTML = `
+            ${freeBadge}
+            <div style="position:relative;">
+                <div class="service-icon">
+                    <i class="${service.icon}"></i>
+                </div>
+            </div>
+            <h3>${service.name}</h3>
+            <p>${service.description}</p>
+            ${oldPriceDisplay}
+            <div class="service-price" style="color:#00ff00; font-size:32px; font-weight:bold;">
+                <i class="fas fa-gift"></i> 0 KOIN
+            </div>
+            <button class="game-btn" data-price="${service.price}" data-service="${service.name}" style="background:linear-gradient(45deg,#00cc00,#009900);">
+                <i class="fas fa-shopping-cart"></i> DAPATKAN GRATIS
+            </button>
+        `;
+
+        const btn = serviceCard.querySelector('button');
+        btn.addEventListener('click', function() {
+            const price = parseInt(this.getAttribute('data-price'));
+            const serviceName = this.getAttribute('data-service');
+            buyService(price, serviceName);
+        });
+
+        serviceContainer.appendChild(serviceCard);
+    });
+    
+    // Footer info promo
+    const footer = document.createElement('div');
+    footer.style.cssText = `
+        grid-column: 1 / -1;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 20px;
+        border: 1px solid #00ff00;
+    `;
+    footer.innerHTML = `
+        <p style="margin:0; font-size:14px; color:#ffd166;">
+            <i class="fas fa-clock"></i> Promo berlangsung sampai: <strong>31 Desember 2024</strong>
+        </p>
+        <p style="margin:10px 0 0 0; font-size:12px; color:#aaa;">
+            Setelah promo berakhir, harga akan kembali normal (400 koin)
+        </p>
+    `;
+    serviceContainer.appendChild(footer);
+    
+    console.log(`🎁 ${SERVICE_DEFINITIONS.length} layanan GRATIS dirender`);
+    
+    // Tambahkan animasi CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .service-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 255, 0, 0.3);
+        }
+        
+        .service-card::after {
+            content: 'GRATIS';
+            position: absolute;
+            top: 10px;
+            left: -30px;
+            background: #ff0000;
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(-45deg);
+            font-size: 12px;
+            font-weight: bold;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// ====================================================
+// UPDATE FUNGSI KIRIM EMAIL (TETAP BERLAKU)
+// ====================================================
+function submitServiceForm(e) {
+    e.preventDefault();
+    
+    const userName = document.getElementById('userName').value.trim();
+    const targetLink = document.getElementById('targetLink').value.trim();
+    const additionalMessage = document.getElementById('additionalMessage').value.trim();
+    const serviceName = document.getElementById('selectedService').value;
+    const price = document.getElementById('selectedPrice').value;
+    
+    // Validasi input
+    if (!userName || !targetLink) {
+        alert('❌ Harap isi nama dan link target!');
+        return;
+    }
+    
+    const statusDiv = document.getElementById('emailStatus');
+    statusDiv.style.display = 'block';
+    statusDiv.className = 'message loading';
+    statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim permintaan GRATIS ke admin...';
+    
+    console.log('🎁 Mengirim layanan GRATIS:', { userName, serviceName });
+    
+    // Template parameters untuk EmailJS
+    const templateParams = {
+        user_name: userName,
+        service_name: serviceName,
+        target_link: targetLink,
+        additional_message: additionalMessage || '(Tidak ada pesan tambahan)',
+        price: 'GRATIS (Promo Spesial!)',
+        date: new Date().toLocaleString('id-ID'),
+        timestamp: Date.now(),
+        promo_status: 'GRATIS_100_PERCENT'
+    };
+    
+    // Kirim email
+    emailjs.send('service_kzoko36', 'template_dg87nwy', templateParams)
+        .then(function(response) {
+            console.log('✅ Permintaan GRATIS berhasil dikirim!', response.status);
+            
+            statusDiv.className = 'message success';
+            statusDiv.innerHTML = `
+                <i class="fas fa-check-circle"></i> Permintaan GRATIS berhasil dikirim!<br>
+                <small>Admin akan menghubungi Anda dalam 24 jam.</small>
+            `;
+            
+            // Reset form setelah 3 detik
+            setTimeout(() => {
+                document.getElementById('serviceForm').style.display = 'none';
+                statusDiv.style.display = 'none';
+                
+                alert(`🎉 Permintaan ${serviceName} GRATIS berhasil!\n\nTerima kasih telah menggunakan promo spesial kami!`);
+            }, 3000);
+            
+        }, function(error) {
+            console.error('❌ Gagal mengirim permintaan GRATIS:', error);
+            
+            statusDiv.className = 'message error';
+            statusDiv.innerHTML = `
+                <i class="fas fa-exclamation-circle"></i> Gagal mengirim<br>
+                <small>${error.text || 'Coba lagi atau hubungi admin'}</small>
+            `;
+        });
+}
+
+// ====================================================
+// UPDATE VERSION_CODE UNTUK REFRESH HARGA GRATIS
+// ====================================================
+const VERSION_CODE = 5; // Naikkan version code karena ada update harga GRATIS
+
+// ====================================================
+// NOTIFIKASI PROMO GRATIS
+// ====================================================
+function showFreePromoNotification() {
+    const notification = document.createElement('div');
+    notification.id = 'freePromoNotification';
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #ff0000, #ff6600);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(255, 0, 0, 0.5);
+        z-index: 9999;
+        max-width: 90%;
+        text-align: center;
+        animation: slideDown 1s ease, flash 2s infinite;
+        border: 3px solid #ffd700;
+    `;
+    
+    notification.innerHTML = `
+        <h3 style="margin:0 0 10px 0; color:#ffd700;">
+            <i class="fas fa-gift"></i> PROMO BESAR-BESARAN!
+        </h3>
+        <p style="margin:0 0 10px 0; font-size:20px; font-weight:bold;">
+            🎉 SEMUA LAYANAN SUNTIK SOSMED GRATIS! 🎉
+        </p>
+        <p style="margin:0; font-size:14px;">
+            Untuk waktu terbatas! Buruan sebelum kembali berbayar!
+        </p>
+        <button onclick="closeFreePromo()" style="margin-top:15px; background:#00cc00; border:none; color:white; padding:8px 20px; border-radius:25px; cursor:pointer; font-weight:bold;">
+            <i class="fas fa-check"></i> MENGERTI
+        </button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideDown {
+            from { top: -100px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+        @keyframes flash {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 10px 40px rgba(255, 255, 0, 0.8); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function closeFreePromo() {
+    const notification = document.getElementById('freePromoNotification');
+    if (notification) {
+        notification.style.animation = 'slideUp 0.5s ease';
+        setTimeout(() => notification.remove(), 500);
+    }
+}
+
+// ====================================================
+// PANGGIL FUNGSI PROMO SAAT LOAD
+// ====================================================
+document.addEventListener('DOMContentLoaded', function() {
+    // Tampilkan notifikasi promo GRATIS
+    setTimeout(() => {
+        showFreePromoNotification();
+    }, 2000);
+    
+    // Render services dengan harga GRATIS
+    renderServices();
+    
+    console.log('🎁 PROMO GRATIS AKTIF! Semua layanan 0 koin');
+});
