@@ -1,7 +1,82 @@
+<script>
+// VERSION CODE ANTI CACHE
+const VERSION_CODE = 3;
+const LAST_VERSION = localStorage.getItem("version_code");
+if (LAST_VERSION !== String(VERSION_CODE)) {
+  localStorage.setItem("version_code", VERSION_CODE);
+  localStorage.setItem("force_refresh", Date.now());
+}
 
+// SISTEM KOIN TERPUSAT
+function updateKoin(amount) {
+  let koin = parseInt(localStorage.getItem("koin") || "0");
+  koin += amount;
+  if (koin < 0) koin = 0;
+  localStorage.setItem("koin", koin);
+  const el = document.getElementById("coinValue");
+  if (el) el.innerText = koin;
+}
+
+// ANTI-CHEAT REWARD GAME
+function rewardGameOnce(gameKey, reward) {
+  const key = "reward_" + gameKey;
+  if (localStorage.getItem(key)) return false;
+  updateKoin(reward);
+  localStorage.setItem(key, Date.now());
+  return true;
+}
+
+// FUNGSI HILANG (WAJIB)
+function closeActiveGame(){}
+function buyService(){}
+function submitServiceForm(){}
+function forceUpdate(){
+  location.href = location.href.split("?")[0] + "?v=" + VERSION_CODE;
+}
+
+// ==== DATA SERVICE SOSMED (HARGA SEMUA 300) ====
 const SOSMED_SERVICES = [
   { id: "like", name: "Like", price: 300 },
   { id: "view", name: "View", price: 300 },
   { id: "share", name: "Share", price: 300 },
   { id: "favorite", name: "Favorite", price: 300 }
 ];
+
+// RENDER SERVICE KE UI
+function renderServices() {
+  const container = document.getElementById("serviceContainer");
+  if (!container) return;
+  container.innerHTML = ""; // hapus dulu
+  SOSMED_SERVICES.forEach(s => {
+    const div = document.createElement("div");
+    div.className = "serviceItem";
+    div.innerHTML = `
+      ${s.name} - Koin: ${s.price}
+      <button onclick="buyService('${s.id}', ${s.price})">Beli</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// GANTI FUNGSI buyService SUPAYA KONSISTEN
+function buyService(id, price) {
+  let koin = parseInt(localStorage.getItem("koin") || "0");
+  if (koin < price) {
+    alert("Koin tidak cukup!");
+    return;
+  }
+  updateKoin(-price);
+  alert("Berhasil membeli " + id);
+}
+
+// RENDER GAME / SERVICE AWAL
+function renderAll() {
+  renderServices();
+  // panggil render game lain juga kalau ada
+}
+
+// INISIALISASI
+document.addEventListener("DOMContentLoaded", function(){
+  renderAll();
+});
+</script>
